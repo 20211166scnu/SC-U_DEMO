@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SC&U 이동 약자 맞춤형 스마트 지도 - 카카오 지도 네비게이션 (V5.0)</title>
+    
+    <!-- React & Babel Loaders -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Kakao Map API -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&libraries=services,clusterer,drawing"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 h-screen font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
