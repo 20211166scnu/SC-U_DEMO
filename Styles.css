@@ -1,0 +1,232 @@
+/* 기본 리셋/유틸 (Tailwind가 일부 담당하므로 필요한 부분만 보완) */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* 전체 레이아웃: 좌/중/우(사이드바 / 맵 / 사이드바) */
+.main-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 16px;
+  padding: 16px;
+  height: 100vh;
+  background-color: #f3f4f6;
+  align-items: start;
+}
+
+/* 반응형: 작은 화면에서는 사이드바 숨기고 맵만 표시 */
+@media (max-width: 1000px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 12px;
+  }
+}
+
+/* 사이드바 공통 */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100vh - 32px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 맵 영역 */
+.map-area {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 32px);
+}
+
+/* 카카오 맵 컨테이너 */
+.map-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+/* 카드 (정보 패널, 제어 패널 등) */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.05);
+  border: 1px solid rgba(15, 23, 42, 0.03);
+}
+
+/* 상태 보드 전용 조금 강조 */
+.status-board .card-header,
+.card-header {
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+/* 상태 표시 영역 */
+.status-display {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #111827;
+  background: #eef2ff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+.status-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.status-desc {
+  color: #475569;
+  font-size: 13px;
+}
+
+/* 제어 버튼들 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  width: auto;
+  transition: transform .08s ease, box-shadow .08s ease, opacity .12s;
+  text-decoration: none;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-block { width: 100%; }
+
+/* 색상 변형 */
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(37,99,235,0.12);
+}
+.btn-primary:hover { filter: brightness(0.98); }
+
+.btn-success {
+  background: #16a34a;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(22,163,74,0.12);
+}
+.btn-success:hover { filter: brightness(0.98); }
+
+.btn-outline {
+  background: transparent;
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,0.08);
+}
+
+/* 비활성화 스타일 (disabled 버튼) */
+.btn[disabled], .btn[disabled]:hover {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 강조 애니메이션 (경로 시작 버튼) */
+.btn-pulse {
+  position: relative;
+  overflow: visible;
+}
+.btn-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 12px;
+  background: radial-gradient(circle at center, rgba(34,197,94,0.12), transparent 40%);
+  z-index: -1;
+  animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  70% { transform: scale(1.08); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* 제어 섹션 (위험/정보 강조 박스) */
+.control-section {
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba(2,6,23,0.04);
+}
+.control-section.danger { background: #fff7f7; border-color: rgba(220,38,38,0.08); }
+.control-section.info { background: #f0f9ff; border-color: rgba(59,130,246,0.06); }
+.control-section-title { font-weight: 700; margin-bottom: 6px; }
+
+/* Parking panel */
+.parking-panel {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  min-width: 240px;
+  z-index: 20;
+  pointer-events: auto;
+}
+.parking-header { font-weight: 700; margin-bottom: 8px; color: #0f172a; }
+
+.parking-slots {
+  display: flex;
+  gap: 8px;
+}
+.parking-slot {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  flex: 1;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(2,6,23,0.06);
+  cursor: pointer;
+  user-select: none;
+}
+.parking-slot:hover { transform: translateY(-2px); transition: transform .12s; }
+
+/* 상태별 시각표시 */
+.slot-label { font-size: 12px; margin-bottom: 8px; display:block; color: #0f172a; }
+.slot-visual { font-size: 18px; font-weight: 700; }
+
+/* 상태별 색상 */
+.slot-label.available { color: #065f46; }
+.slot-visual.available { color: #16a34a; }
+.slot-label.construction { color: #92400e; }
+.slot-visual.construction { color: #f59e0b; }
+.slot-label.occupied { color: #7f1d1d; }
+.slot-visual.occupied { color: #ef4444; }
+
+/* 스크롤바 간단 스타일(사이드바 내부) */
+.sidebar::-webkit-scrollbar { width: 10px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.06); border-radius: 6px; }
+
+/* 작은 화면에서 주차 패널 위치 보정 */
+@media (max-width: 640px) {
+  .parking-panel { left: 12px; right: 12px; min-width: auto; bottom: 12px; }
+}
+
+/* 보조: 카드 내부의 작은 텍스트 */
+.card .text-sm { font-size: 13px; color: #475569; }
+
+/* 접근성: 버튼 포커스 */
+.btn:focus { outline: 3px solid rgba(37,99,235,0.14); outline-offset: 2px; }
+
+/* 마지막으로, map 내부 컨텐츠(예: info windows) 기본 스타일 보정 */
+.kakao-map .info-window { font-size: 13px; color: #111827; }
